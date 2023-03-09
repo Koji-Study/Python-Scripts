@@ -1,4 +1,5 @@
 # ! -*- coding: utf-8 -*-
+#检查doris集群状态，宕机重启，并发送企业微信消息
 import requests
 import paramiko
 import time
@@ -31,7 +32,7 @@ def restart_doris(restart_list):
 def check():
     ip = ''
     request = requests.session()
-    request.auth = ('root', 'Geovis@117')
+    request.auth = ('user', 'passwd')
     result = request.get(url, headers={'Cache-Control': 'no-cache'})
     result = result.json().get('data').get('backends')
     ip_list = [0] * len(result)

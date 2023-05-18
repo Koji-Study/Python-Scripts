@@ -11,7 +11,7 @@ def voice():
     #设置第一个语音合成器
     engine.setProperty('voice', voices[0].id)
     for num in range(3):
-        engine.say("新的运维时间产生，请及时处理")
+        engine.say("新的运维事件产生，请及时处理")
     engine.runAndWait()
     engine.stop()
 

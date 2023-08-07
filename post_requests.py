@@ -1,6 +1,6 @@
 import requests
 
-def call_api():
+def mian():
     #API URL
     url = "https://api.example.com"
     #要发送的数据
@@ -23,4 +23,4 @@ def call_api():
         print(f"Error making API request: {e}")
 
 if __name__ == "__main__":
-    call_api()
+    main()

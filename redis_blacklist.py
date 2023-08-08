@@ -3,7 +3,7 @@
 import redis
 
 def addin_blacklist(black_ip, black_time):
-    db = redis.Redis(host="10.1.109.184", port=6379, db=0)
+    db = redis.Redis(host="10.10.1090.10", port=6379, db=0)
     print("需要封禁的IP是：" + black_ip + "封禁时间是: " + black_time)
     # 检查是否在黑名单中
     black_ip = "BlackIP" + black_ip

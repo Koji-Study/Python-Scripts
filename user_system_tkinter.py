@@ -10,6 +10,9 @@ blacklist_window_count = 0
 qrcode_window_count = 0
 back_window_count = 0
 
+def callback(window_name):
+    destroy_window(window_name)
+
 def destroy_window(window_name):
     global user_window_count, blacklist_window_count, qrcode_window_count, back_window_count
     user_window_count = 0
@@ -18,9 +21,13 @@ def destroy_window(window_name):
     back_window_count = 0
     window_name.destroy()
 
+
 #重复打开相同界面告警
-def warning_window():
-    messagebox.showwarning("警告", "不可同时打开多个相同界面！")
+def warning_window(situation):
+    if situation == "too-many-windows":
+        messagebox.showwarning("警告", "不可同时打开多个相同界面！")
+    elif situation == "not-correct-button":
+        messagebox.showwarning("警告", "点击关闭按钮关闭当前页面！")
 
 #通知
 def notice(root_window, label_text):
@@ -42,22 +49,24 @@ def notice(root_window, label_text):
 def user():
     global user_window_count
     if user_window_count == 1:
-        warning_window()
+        warning_window("too-many-windows")
         return
     user_window = tkinter.Tk()
     user_window.title('用户管理界面')
     # 设置窗口大小:宽x高,注,此处不能为 "*",必须使用 "x"
     user_window.geometry('300x200+70+105')
     user_window["background"] = "#C9C9C9"
+    user_window_count = 1
+    user_window.protocol('WM_DELETE_WINDOW', lambda: warning_window("not-correct-button"))
     button_user_close = tkinter.Button(user_window, text="关闭", width=6, height=1, command=lambda: destroy_window(user_window))
     button_user_close.place(x=130, y=165)
-    user_window_count = 1
 
-#黑名单
+
+#黑名单cd
 def blacklist():
     global blacklist_window_count
     if blacklist_window_count == 1:
-        warning_window()
+        warning_window("too-many-windows")
         return
     #blacklist_window = Toplevel(root_window)
     blacklist_window = tkinter.Tk()
@@ -65,16 +74,17 @@ def blacklist():
     # 设置窗口大小:宽x高,注,此处不能为 "*",必须使用 "x"
     blacklist_window.geometry('300x200+70+105')
     blacklist_window["background"] = "#C9C9C9"
+    blacklist_window_count = 1
+    blacklist_window.protocol('WM_DELETE_WINDOW', lambda: warning_window("not-correct-button"))
     button_blacklist_close = tkinter.Button(blacklist_window, text="关闭", width=6, height=1, command=lambda: destroy_window(blacklist_window))
     button_blacklist_close.place(x=130, y=165)
-    blacklist_window_count = 1
 
 
 #二维码
 def qrcode():
     global qrcode_window_count
     if qrcode_window_count == 1:
-        warning_window()
+        warning_window("too-many-windows")
         return
     #back1_window = Toplevel(root_window)
     qrcode_window = tkinter.Tk()
@@ -82,15 +92,17 @@ def qrcode():
     # 设置窗口大小:宽x高,注,此处不能为 "*",必须使用 "x"
     qrcode_window.geometry('300x200+70+105')
     qrcode_window["background"] = "#C9C9C9"
+    qrcode_window_count = 1
+    qrcode_window.protocol('WM_DELETE_WINDOW', lambda: warning_window("not-correct-button"))
     button_qrcode_close = tkinter.Button(qrcode_window, text="关闭", width=6, height=1, command=lambda: destroy_window(qrcode_window))
     button_qrcode_close.place(x=130, y=165)
-    qrcode_window_count = 1
+
 
 #备用
 def back():
     global back_window_count
     if back_window_count == 1:
-        warning_window()
+        warning_window("too-many-windows")
         return
     #back2_window = Toplevel(root_window)
     back_window = tkinter.Tk()
@@ -98,9 +110,11 @@ def back():
     # 设置窗口大小:宽x高,注,此处不能为 "*",必须使用 "x"
     back_window.geometry('300x200+70+105')
     back_window["background"] = "#C9C9C9"
+    back_window_count = 1
+    back_window.protocol('WM_DELETE_WINDOW', lambda: warning_window("not-correct-button"))
     button_back_close = tkinter.Button(back_window, text="关闭", width=6, height=1, command=lambda: destroy_window(back_window))
     button_back_close.place(x=130, y=165)
-    back_window_count = 1
+
 
 #主窗口，一个通知，五个按钮（四个功能+一个关闭）
 def create_tk():

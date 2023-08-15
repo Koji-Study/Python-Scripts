@@ -10,16 +10,12 @@ blacklist_window_count = 0
 qrcode_window_count = 0
 back_window_count = 0
 
-def destroy_window(window_name,tag):
+def destroy_window(window_name):
     global user_window_count, blacklist_window_count, qrcode_window_count, back_window_count
-    if tag == 1:
-        user_window_count = 0
-    elif tag == 2:
-        blacklist_window_count = 0
-    elif tag == 3:
-        qrcode_window_count = 0
-    elif tag == 4:
-        back_window_count = 0
+    user_window_count = 0
+    blacklist_window_count = 0
+    qrcode_window_count = 0
+    back_window_count = 0
     window_name.destroy()
 
 #重复打开相同界面告警
@@ -53,7 +49,7 @@ def user():
     # 设置窗口大小:宽x高,注,此处不能为 "*",必须使用 "x"
     user_window.geometry('300x200+70+105')
     user_window["background"] = "#C9C9C9"
-    button_user_close = tkinter.Button(user_window, text="关闭", width=6, height=1, command=lambda: destroy_window(user_window, tag=1))
+    button_user_close = tkinter.Button(user_window, text="关闭", width=6, height=1, command=lambda: destroy_window(user_window))
     button_user_close.place(x=130, y=165)
     user_window_count = 1
 
@@ -69,7 +65,7 @@ def blacklist():
     # 设置窗口大小:宽x高,注,此处不能为 "*",必须使用 "x"
     blacklist_window.geometry('300x200+70+105')
     blacklist_window["background"] = "#C9C9C9"
-    button_blacklist_close = tkinter.Button(blacklist_window, text="关闭", width=6, height=1, command=lambda: destroy_window(blacklist_window, tag=2))
+    button_blacklist_close = tkinter.Button(blacklist_window, text="关闭", width=6, height=1, command=lambda: destroy_window(blacklist_window))
     button_blacklist_close.place(x=130, y=165)
     blacklist_window_count = 1
 
@@ -86,7 +82,7 @@ def qrcode():
     # 设置窗口大小:宽x高,注,此处不能为 "*",必须使用 "x"
     qrcode_window.geometry('300x200+70+105')
     qrcode_window["background"] = "#C9C9C9"
-    button_qrcode_close = tkinter.Button(qrcode_window, text="关闭", width=6, height=1, command=lambda: destroy_window(qrcode_window, tag=3))
+    button_qrcode_close = tkinter.Button(qrcode_window, text="关闭", width=6, height=1, command=lambda: destroy_window(qrcode_window))
     button_qrcode_close.place(x=130, y=165)
     qrcode_window_count = 1
 
@@ -102,7 +98,7 @@ def back():
     # 设置窗口大小:宽x高,注,此处不能为 "*",必须使用 "x"
     back_window.geometry('300x200+70+105')
     back_window["background"] = "#C9C9C9"
-    button_back_close = tkinter.Button(back_window, text="关闭", width=6, height=1, command=lambda: destroy_window(back_window, tag=4))
+    button_back_close = tkinter.Button(back_window, text="关闭", width=6, height=1, command=lambda: destroy_window(back_window))
     button_back_close.place(x=130, y=165)
     back_window_count = 1
 

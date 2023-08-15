@@ -24,7 +24,7 @@ def destroy_window(window_name,tag):
 
 #重复打开相同界面告警
 def warning_window():
-    messagebox.showwarning("警告", "不可重复打开多个相同界面！")
+    messagebox.showwarning("警告", "不可同时打开多个相同界面！")
 
 #通知
 def notice(root_window, label_text):
@@ -59,6 +59,10 @@ def user():
 
 #黑名单
 def blacklist():
+    global blacklist_window_count
+    if blacklist_window_count == 1:
+        warning_window()
+        return
     #blacklist_window = Toplevel(root_window)
     blacklist_window = tkinter.Tk()
     blacklist_window.title('黑名单处理界面')
@@ -67,9 +71,15 @@ def blacklist():
     blacklist_window["background"] = "#C9C9C9"
     button_blacklist_close = tkinter.Button(blacklist_window, text="关闭", width=6, height=1, command=lambda: destroy_window(blacklist_window, tag=2))
     button_blacklist_close.place(x=130, y=165)
+    blacklist_window_count = 1
+
 
 #二维码
 def qrcode():
+    global qrcode_window_count
+    if qrcode_window_count == 1:
+        warning_window()
+        return
     #back1_window = Toplevel(root_window)
     qrcode_window = tkinter.Tk()
     qrcode_window.title('二维码界面')
@@ -78,9 +88,14 @@ def qrcode():
     qrcode_window["background"] = "#C9C9C9"
     button_qrcode_close = tkinter.Button(qrcode_window, text="关闭", width=6, height=1, command=lambda: destroy_window(qrcode_window, tag=3))
     button_qrcode_close.place(x=130, y=165)
+    qrcode_window_count = 1
 
 #备用
 def back():
+    global back_window_count
+    if back_window_count == 1:
+        warning_window()
+        return
     #back2_window = Toplevel(root_window)
     back_window = tkinter.Tk()
     back_window.title('备用界面')
@@ -89,6 +104,7 @@ def back():
     back_window["background"] = "#C9C9C9"
     button_back_close = tkinter.Button(back_window, text="关闭", width=6, height=1, command=lambda: destroy_window(back_window, tag=4))
     button_back_close.place(x=130, y=165)
+    back_window_count = 1
 
 #主窗口，一个通知，五个按钮（四个功能+一个关闭）
 def create_tk():
@@ -110,7 +126,7 @@ def create_tk():
     button_user = tkinter.Button(root_window, text="用户管理", width=10, height=1, command=user)
     button_blacklist = tkinter.Button(root_window, text="黑名单", width=10, height=1, command=blacklist)
     button_qrcode = tkinter.Button(root_window, text="二维码", width=10, height=1, command=qrcode)
-    button_back = tkinter.Button(root_window, text="备用2", width=10, height=1, command=back)
+    button_back = tkinter.Button(root_window, text="备用", width=10, height=1, command=back)
     button_close = tkinter.Button(root_window, text="关闭", width=6, height=1, command=root_window.quit)
     # 将按钮放置在主窗口内
     button_user.place(x=50, y=50)

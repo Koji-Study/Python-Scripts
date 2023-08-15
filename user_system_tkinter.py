@@ -10,9 +10,7 @@ blacklist_window_count = 0
 qrcode_window_count = 0
 back_window_count = 0
 
-def callback(window_name):
-    destroy_window(window_name)
-
+#关闭窗口
 def destroy_window(window_name):
     global user_window_count, blacklist_window_count, qrcode_window_count, back_window_count
     user_window_count = 0
@@ -22,10 +20,12 @@ def destroy_window(window_name):
     window_name.destroy()
 
 
-#重复打开相同界面告警
+#告警
 def warning_window(situation):
+    #重复打开相同界面告警
     if situation == "too-many-windows":
         messagebox.showwarning("警告", "不可同时打开多个相同界面！")
+    #关闭其他页面X退出功能
     elif situation == "not-correct-button":
         messagebox.showwarning("警告", "点击关闭按钮关闭当前页面！")
 

@@ -10,7 +10,7 @@ blacklist_window_count = 0
 qrcode_window_count = 0
 back_window_count = 0
 
-#关闭窗口
+
 def destroy_window(window_name):
     global user_window_count, blacklist_window_count, qrcode_window_count, back_window_count
     user_window_count = 0
@@ -19,15 +19,10 @@ def destroy_window(window_name):
     back_window_count = 0
     window_name.destroy()
 
-
-#告警
+#重复打开相同界面告警
 def warning_window(situation):
-    #重复打开相同界面告警
     if situation == "too-many-windows":
         messagebox.showwarning("警告", "不可同时打开多个相同界面！")
-    #关闭其他页面X退出功能
-    elif situation == "not-correct-button":
-        messagebox.showwarning("警告", "点击关闭按钮关闭当前页面！")
 
 #通知
 def notice(root_window, label_text):
@@ -57,7 +52,7 @@ def user():
     user_window.geometry('300x200+70+105')
     user_window["background"] = "#C9C9C9"
     user_window_count = 1
-    user_window.protocol('WM_DELETE_WINDOW', lambda: warning_window("not-correct-button"))
+    user_window.protocol('WM_DELETE_WINDOW', lambda: destroy_window(user_window))
     button_user_close = tkinter.Button(user_window, text="关闭", width=6, height=1, command=lambda: destroy_window(user_window))
     button_user_close.place(x=130, y=165)
 
@@ -75,7 +70,7 @@ def blacklist():
     blacklist_window.geometry('300x200+70+105')
     blacklist_window["background"] = "#C9C9C9"
     blacklist_window_count = 1
-    blacklist_window.protocol('WM_DELETE_WINDOW', lambda: warning_window("not-correct-button"))
+    blacklist_window.protocol('WM_DELETE_WINDOW', lambda: destroy_window(blacklist_window))
     button_blacklist_close = tkinter.Button(blacklist_window, text="关闭", width=6, height=1, command=lambda: destroy_window(blacklist_window))
     button_blacklist_close.place(x=130, y=165)
 
@@ -93,7 +88,7 @@ def qrcode():
     qrcode_window.geometry('300x200+70+105')
     qrcode_window["background"] = "#C9C9C9"
     qrcode_window_count = 1
-    qrcode_window.protocol('WM_DELETE_WINDOW', lambda: warning_window("not-correct-button"))
+    qrcode_window.protocol('WM_DELETE_WINDOW', lambda: destroy_window(qrcode_window))
     button_qrcode_close = tkinter.Button(qrcode_window, text="关闭", width=6, height=1, command=lambda: destroy_window(qrcode_window))
     button_qrcode_close.place(x=130, y=165)
 
@@ -111,7 +106,7 @@ def back():
     back_window.geometry('300x200+70+105')
     back_window["background"] = "#C9C9C9"
     back_window_count = 1
-    back_window.protocol('WM_DELETE_WINDOW', lambda: warning_window("not-correct-button"))
+    back_window.protocol('WM_DELETE_WINDOW', lambda: destroy_window(back_window))
     button_back_close = tkinter.Button(back_window, text="关闭", width=6, height=1, command=lambda: destroy_window(back_window))
     button_back_close.place(x=130, y=165)
 

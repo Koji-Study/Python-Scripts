@@ -12,7 +12,7 @@ pygame.display.set_caption('接住你的太阳')
 bg_img = pygame.image.load("bg.png")
 bg_img = pygame.transform.scale(bg_img, (screen_width, screen_height))
 #设置太阳的图片,并设置太阳的大小
-sun_img = pygame.image.load("ball.png")
+sun_img = pygame.image.load("sun.png")
 sun_img = pygame.transform.scale(sun_img, (20, 20))
 #设置人物的图片
 girl_img = pygame.image.load("girl.png")

@@ -22,18 +22,24 @@ girl_img = pygame.transform.scale(girl_img, (20, 20))
 def sun_move():
     #设置太阳下落的速度
     speed = 5
+    #小女孩运动的步长
     step = 10
+    #太阳的初始位置
     sun_x = random.randint(0, screen_width - 20)
     sun_y = 0
+    #小女孩的初始位置
     girl_x = 150
     girl_y = 220
     running = True
+    #按键按下起作用
     key_pressed_a = False
     key_pressed_d = False
     while running:
         time.sleep(0.1)
         screen.blit(bg_img, (0, 0))
+        #小女孩横向变化
         girl_x += step
+        #小女孩的边界处理
         if girl_x >= 300:
             girl_x = 300
             print("girl到达右边边界")
@@ -42,7 +48,7 @@ def sun_move():
             print("girl到达左边边界")
         screen.blit(girl_img, (girl_x, girl_y))
         screen.blit(sun_img, (sun_x, sun_y))
-
+        #太阳纵向位移
         sun_y += speed
         #当图片有重合时表示接住太阳
         if sun_x + 20 > girl_x and sun_x < girl_x + 20 and sun_y + 20 > girl_y and sun_y < girl_y + 20:
@@ -87,10 +93,13 @@ def sun_move():
                 elif event.key == pygame.K_q:
                     running = False
                     print("q,退")
+        #按下a向左移动
         if key_pressed_a == True:
             step = -10
+        #按下d向右移动
         elif key_pressed_d == True:
             step = 10
+        #按键抬起后，不做位移
         else:
             step = 0
         pygame.display.update()

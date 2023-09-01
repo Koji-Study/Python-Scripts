@@ -12,49 +12,68 @@ pygame.display.set_caption('接住你的太阳')
 bg_img = pygame.image.load("bg.png")
 bg_img = pygame.transform.scale(bg_img, (screen_width, screen_height))
 #设置太阳的图片,并设置太阳的大小
-sun_img = pygame.image.load("sun.png")
+sun_img = pygame.image.load("ball.png")
 sun_img = pygame.transform.scale(sun_img, (20, 20))
 #设置人物的图片
 girl_img = pygame.image.load("girl.png")
 girl_img = pygame.transform.scale(girl_img, (20, 20))
-
+#文字字体和字号
+font = pygame.font.Font(None, 20)
 
 def sun_move():
     #设置太阳下落的速度
     speed = 5
+    #用于给增加太阳下落速度
+    speed_count = 0
     #小女孩运动的步长
     step = 10
+    #接到太阳的个数
+    score = 0
     #太阳的初始位置
     sun_x = random.randint(0, screen_width - 20)
     sun_y = 0
-    #小女孩的初始位置
+    # 小女孩的初始位置
     girl_x = 150
     girl_y = 220
     running = True
-    #按键按下起作用
+    #按键按下起作用，抬起不作用
     key_pressed_a = False
     key_pressed_d = False
     while running:
         time.sleep(0.1)
+        #太阳每运动99次，速度加1
+        if speed_count < 100:
+            speed_count = speed_count + 1
+        elif speed_count == 100:
+            speed_count = 0
+            speed = speed + 1
+        #配置文字内容
+        text = "speed:" + str(speed) + " score:" + str(score)
+        text_surface = font.render(text, True, (255, 255, 255))
+        text_rect = text_surface.get_rect()
+        text_rect.center = (60, 10)
         screen.blit(bg_img, (0, 0))
-        #小女孩横向变化
+        # 小女孩横向变化
         girl_x += step
-        #小女孩的边界处理
+        # 小女孩的边界处理
         if girl_x >= 300:
             girl_x = 300
             print("girl到达右边边界")
         elif girl_x <= 0:
             girl_x = 0
             print("girl到达左边边界")
+        #刷新每个组成部分，达到最新
         screen.blit(girl_img, (girl_x, girl_y))
         screen.blit(sun_img, (sun_x, sun_y))
-        #太阳纵向位移
+        screen.blit(text_surface, text_rect)
+        # 太阳纵向位移
         sun_y += speed
-        #当图片有重合时表示接住太阳
+        #当图片有重合时表示接住太阳，成绩加1，太阳重新落下
         if sun_x + 20 > girl_x and sun_x < girl_x + 20 and sun_y + 20 > girl_y and sun_y < girl_y + 20:
             sun_y = 0
             sun_x = random.randint(0, screen_width - 20)
-            print("接住太阳！，重新落下")
+            score = score + 1
+            print("接住太阳！sun重新落下")
         #当太阳落到底部时，重新落下
         if sun_y >= 240:
             sun_y = 0
@@ -93,13 +112,13 @@ def sun_move():
                 elif event.key == pygame.K_q:
                     running = False
                     print("q,退")
-        #按下a向左移动
+        # 按下a向左移动
         if key_pressed_a == True:
             step = -10
-        #按下d向右移动
+        # 按下d向右移动
         elif key_pressed_d == True:
             step = 10
-        #按键抬起后，不做位移
+        #抬起时不运动
         else:
             step = 0
         pygame.display.update()
